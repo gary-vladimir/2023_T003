@@ -1,5 +1,45 @@
+from picamera.array import PiRGBArray
+from picamera import PiCamera
 from time import sleep
+import numpy as np
+import cv2 as CV
 import cyberpi
+
+#-------------- COMPUTER VISION --------------#
+
+def takeFoto():
+    with PiCamera() as camera:
+        camera.resolution = (640, 480)
+        foto = PiRGBArray(camera, size=(640,480))
+        sleep(1)
+        camera.capture(foto, format='bgr')
+        return foto.array
+
+def getCircles(image):
+    grayFrame = CV.cvtColor(image, CV.COLOR_BGR2GRAY)
+    blurredFrame = CV.GaussianBlur(grayFrame, (9,9), 2)
+    circles = CV.HoughCircles(blurredFrame, CV.HOUGH_GRADIENT, 1.2, 100, param1=50, param2=32, minRadius=20, maxRadius=250)
+    if circles is not None:
+        circles = np.round(circles[0, :]).astype("int")
+
+    return circles
+
+def LargestCircle(circles):
+    if len(circles) == 0: return None
+    return max(circles, key=lambda c: c[2])
+
+foto = takeFoto()
+circles = getCircles(foto)
+TargetBall = LargestCircle(circles)
+for circle in circles:
+    x, y, r = circle
+    CV.circle(foto, (x,y),r,(0,255,0),2)
+if TargetBall is not None:
+    x, y, r = TargetBall
+    CV.circle(foto, (x,y),r,(255,0,0),4)
+    
+    
+#------------------ CYBERPI -----------------#
 
 def move(left, right):
     cyberpi.mbot2.drive_power(left*-1, right)
