@@ -11,3 +11,12 @@
 7. Now you can flash😄
 8. Turn the Raspberry pi on, since we used the lite version, it does not come with any sotware or graphics, so don't bother on connecting a monitor or keyboard. Because we already activated the ssh on step 4. we can do everything from our host computer.
 9. open a terminal and run:  ssh gary@TMRPI.local   and that's it! 🥳
+
+## install OpenCV
+10. `sudo apt-get update`
+11. `sudo apt-get upgrade`
+12. `sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev`
+13. `sudo apt install python3-pip`
+14. `pip install --upgrade pip setuptools wheel`
+15. `sudo shutdown -r now`
+16. `pip install opencv-python-headless`
