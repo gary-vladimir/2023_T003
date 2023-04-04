@@ -28,17 +28,19 @@ def LargestCircle(circles):
     if len(circles) == 0: return None
     return max(circles, key=lambda c: c[2])
 
-foto = takeFoto()
-circles = getCircles(foto)
-TargetBall = LargestCircle(circles)
-for circle in circles:
-    x, y, r = circle
-    CV.circle(foto, (x,y),r,(0,255,0),2)
-if TargetBall is not None:
-    x, y, r = TargetBall
-    CV.circle(foto, (x,y),r,(255,0,0),4)
-    
-
+@cyberpi.event.is_press("a")
+def rescueBalls():
+    foto = takeFoto()
+    circles = getCircles(foto)
+    TargetBall = LargestCircle(circles)
+    for circle in circles:
+        x, y, r = circle
+        CV.circle(foto, (x,y),r,(0,255,0),2)
+    if TargetBall is not None:
+        x, y, r = TargetBall
+        CV.circle(foto, (x,y),r,(255,0,0),4)
+        
+        
 #------------------ CYBERPI -----------------#
 
 def move(left, right):
