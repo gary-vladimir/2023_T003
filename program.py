@@ -38,7 +38,7 @@ if TargetBall is not None:
     x, y, r = TargetBall
     CV.circle(foto, (x,y),r,(255,0,0),4)
     
-    
+
 #------------------ CYBERPI -----------------#
 
 def move(left, right):
@@ -47,7 +47,7 @@ def move(left, right):
 def stop():
     cyberpi.mbot2.EM_stop()
 
-@cyberpi.event.is_press("left")
+@cyberpi.event.is_press("b")
 def followLine():
     KD = 15
     KP = 70
