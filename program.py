@@ -43,6 +43,17 @@ def rescueBalls():
         
 #------------------ CYBERPI -----------------#
 
+ultraUp = 1
+ultraDown = 2
+
+def compartment(angle):
+    cyberpi.mbot2.servo_set(angle, "s2")
+    sleep(0.6)
+
+def classifier(angle):
+    cyberpi.mbot2.servo_set(angle, "s1")
+    sleep(0.6)
+
 def move(left, right):
     cyberpi.mbot2.drive_power(left*-1, right)
 
@@ -80,3 +91,9 @@ def followLine():
         PreviousError=error
     stop()
 
+@cyberpi.event.start()
+def initRobot():
+    cyberpi.ultrasonic2.led_show([80,80,80,80,80,80,80,80], index=ultraUp)
+    cyberpi.ultrasonic2.led_show([80,80,80,80,80,80,80,80], index=ultraDown)
+    compartment(90)
+    classifier(90)
