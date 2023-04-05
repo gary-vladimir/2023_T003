@@ -1,5 +1,5 @@
 #from picamera.array import PiRGBArray
-#from picamera import PiCamera
+from picamera import PiCamera
 from time import sleep
 import numpy as np
 import cv2 as CV
@@ -7,15 +7,14 @@ import cyberpi
 from robot import Robot
 
 #-------------- COMPUTER VISION --------------#
-"""
+
 def takeFoto():
     with PiCamera() as camera:
         camera.resolution = (640, 480)
-        foto = PiRGBArray(camera, size=(640,480))
         sleep(1)
-        camera.capture(foto, format='bgr')
-        return foto.array
+        camera.capture("/foto.bgr")
 
+"""
 def getCircles(image):
     grayFrame = CV.cvtColor(image, CV.COLOR_BGR2GRAY)
     blurredFrame = CV.GaussianBlur(grayFrame, (9,9), 2)
@@ -41,7 +40,8 @@ def rescueBalls():
         x, y, r = TargetBall
         CV.circle(foto, (x,y),r,(255,0,0),4)
         
-"""     
+"""
+
 #------------------ CYBERPI -----------------#
 
 robot = Robot()
@@ -87,9 +87,7 @@ def lowerClaw():
     
 @cyberpi.event.is_press("up")
 def elevateClaw():
-    robot.classifier(180)
-    robot.classifier(0)
-    robot.classifier(90)
+    takeFoto()
 
 @cyberpi.event.is_press("left")
 def openClaw():
