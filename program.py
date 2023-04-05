@@ -4,6 +4,7 @@ from time import sleep
 import numpy as np
 import cv2 as CV
 import cyberpi
+from robot import Robot
 
 #-------------- COMPUTER VISION --------------#
 """
@@ -43,37 +44,10 @@ def rescueBalls():
 """     
 #------------------ CYBERPI -----------------#
 
-ultraUp = 1
-ultraDown = 2
-
-def closeClaw():
-    cyberpi.mbot2.motor_set(100, "m2")
-    sleep(0.8)
-    cyberpi.mbot2.motor_set(0, "m2")
-
-def openClaw():
-    cyberpi.mbot2.motor_set(-100, "m2")
-    sleep(0.8)
-    cyberpi.mbot2.motor_set(0, "m2")
-
-def elevateClaw():
-    cyberpi.mbot2.motor_set(100, "m1")
-    sleep(0.8)
-    cyberpi.mbot2.motor_set(0, "m1")
-
-def compartment(angle):
-    cyberpi.mbot2.servo_set(angle, "s2")
-    sleep(0.6)
-
-def classifier(angle):
-    cyberpi.mbot2.servo_set(angle, "s1")
-    sleep(0.6)
-
-def move(left, right):
-    cyberpi.mbot2.drive_power(left*-1, right)
-
-def stop():
-    cyberpi.mbot2.EM_stop()
+robot = Robot()
+@cyberpi.event.start()
+def initRobot():
+    robot.startRobot()
 
 @cyberpi.event.is_press("b")
 def followLine():
@@ -84,13 +58,13 @@ def followLine():
     PreviousPOS = 0
     PreviousError = 0
     while(True):
-        lineStatus = cyberpi.quad_rgb_sensor.get_line_sta(index=1)
+        lineStatus = robot.lineFollowerRead()
         s1 = 0 if (lineStatus & (1 << 3)) == 0 else 1
         s2 = 0 if (lineStatus & (1 << 2)) == 0 else 1
         s3 = 0 if (lineStatus & (1 << 1)) == 0 else 1
         s4 = 0 if (lineStatus & (1 << 0)) == 0 else 1
         if(not s1 and not s2 and not s3 and not s4):
-            move(80,80)
+            robot.move(80,80)
             continue
         suma = s1 + s2*3 + s3*5 + s4*7
         pesos = s1 + s2 + s3 + s4
@@ -102,13 +76,6 @@ def followLine():
         error = POS-4
         P = KP*error
         D = KD * (error-PreviousError) 
-        move(SPEED + P + D, SPEED - P + D)
-        PreviousError=error
-    stop()
-
-@cyberpi.event.start()
-def initRobot():
-    cyberpi.ultrasonic2.led_show([80,80,80,80,80,80,80,80], index=ultraUp)
-    cyberpi.ultrasonic2.led_show([80,80,80,80,80,80,80,80], index=ultraDown)
-    compartment(90)
-    classifier(90)
+        robot.move(SPEED + P + D, SPEED - P + D)
+        PreviousError=error 
+    robot.stop()
