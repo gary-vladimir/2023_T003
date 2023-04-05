@@ -88,6 +88,13 @@ def lowerClaw():
 @cyberpi.event.is_press("up")
 def elevateClaw():
     robot.elevateClaw()
-    
+
+@cyberpi.event.is_press("left")
+def openClaw():
+    robot.openClaw()
+
+@cyberpi.event.is_press("right")
+def closeClaw():
+    robot.closeClaw()
 
 cyberpi.event.start(callback=initRobot)
