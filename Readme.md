@@ -25,6 +25,10 @@
 
 `sudo apt-get install python3-picamera`
 
+## Install the cyberpi library
+
+`pip3 install cyberpi`
+
 ## Run Program
 Clone this repository in the raspberry pi using:
 
