@@ -12,7 +12,7 @@ cam = Picamera2()
 def takeFoto():
     cam.start() 
     sleep(2) 
-    cam.capture_file("test.bgr")
+    cam.capture_file("test.jpg")
 
 """
 def getCircles(image):
