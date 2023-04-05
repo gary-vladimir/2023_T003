@@ -42,6 +42,7 @@ class Robot:
     def compartment(self, angle):
         cyberpi.mbot2.servo_set(angle, self.compartmentServo)
         sleep(0.6)
+        # positive turns the servo right from the servo perspective
 
     def classifier(self, angle):
         cyberpi.mbot2.servo_set(angle, self.clasifierServo)
