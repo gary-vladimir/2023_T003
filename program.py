@@ -87,7 +87,9 @@ def lowerClaw():
     
 @cyberpi.event.is_press("up")
 def elevateClaw():
-    robot.elevateClaw()
+    robot.compartment(180)
+    robot.compartment(0)
+    robot.compartment(90)
 
 @cyberpi.event.is_press("left")
 def openClaw():
