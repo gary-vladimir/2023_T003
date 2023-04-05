@@ -33,7 +33,12 @@ class Robot:
         cyberpi.mbot2.motor_set(100, self.elevatorDC)
         sleep(0.8)
         cyberpi.mbot2.motor_set(0, self.elevatorDC)
-
+        
+    def LowerClaw(self):
+        cyberpi.mbot2.motor_set(-100, self.elevatorDC)
+        sleep(0.8)
+        cyberpi.mbot2.motor_set(0, self.elevatorDC)
+        
     def compartment(self, angle):
         cyberpi.mbot2.servo_set(angle, self.compartmentServo)
         sleep(0.6)

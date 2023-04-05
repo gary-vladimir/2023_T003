@@ -81,4 +81,13 @@ def followLine():
         PreviousError=error 
     robot.stop()
 
+@cyberpi.event.is_press("down")
+def lowerClaw():
+    robot.LowerClaw()
+    
+@cyberpi.event.is_press("up")
+def elevateClaw():
+    robot.elevateClaw()
+    
+
 cyberpi.event.start(callback=initRobot)
