@@ -46,6 +46,21 @@ def rescueBalls():
 ultraUp = 1
 ultraDown = 2
 
+def closeClaw():
+    cyberpi.mbot2.motor_set(100, "m2")
+    sleep(0.8)
+    cyberpi.mbot2.motor_set(0, "m2")
+
+def openClaw():
+    cyberpi.mbot2.motor_set(-100, "m2")
+    sleep(0.8)
+    cyberpi.mbot2.motor_set(0, "m2")
+
+def elevateClaw():
+    cyberpi.mbot2.motor_set(100, "m1")
+    sleep(0.8)
+    cyberpi.mbot2.motor_set(0, "m1")
+
 def compartment(angle):
     cyberpi.mbot2.servo_set(angle, "s2")
     sleep(0.6)
