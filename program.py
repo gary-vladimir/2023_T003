@@ -1,5 +1,5 @@
 #from picamera.array import PiRGBArray
-from picamera import PiCamera
+from picamera2 import Picamera2
 from time import sleep
 import numpy as np
 import cv2 as CV
@@ -7,12 +7,12 @@ import cyberpi
 from robot import Robot
 
 #-------------- COMPUTER VISION --------------#
+cam = Picamera2()
 
 def takeFoto():
-    with PiCamera() as camera:
-        camera.resolution = (640, 480)
-        sleep(1)
-        camera.capture("/foto.bgr")
+    cam.start() 
+    sleep(2) 
+    cam.capture_file("test.bgr")
 
 """
 def getCircles(image):
