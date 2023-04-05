@@ -20,18 +20,18 @@ class Robot:
         print("start up finished correctly :D")       
     
     def closeClaw(self):
-        cyberpi.mbot2.motor_set(100, self.clawDC)
-        sleep(0.8)
+        cyberpi.mbot2.motor_set(-100, self.clawDC)
+        sleep(0.9)
         cyberpi.mbot2.motor_set(0, self.clawDC)
 
     def openClaw(self):
-        cyberpi.mbot2.motor_set(-100, self.clawDC)
-        sleep(0.8)
+        cyberpi.mbot2.motor_set(100, self.clawDC)
+        sleep(0.9)
         cyberpi.mbot2.motor_set(0, self.clawDC)
 
     def elevateClaw(self):
         cyberpi.mbot2.motor_set(100, self.elevatorDC)
-        sleep(0.8)
+        sleep(1)
         cyberpi.mbot2.motor_set(0, self.elevatorDC)
         
     def LowerClaw(self):
