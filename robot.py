@@ -47,6 +47,7 @@ class Robot:
     def classifier(self, angle):
         cyberpi.mbot2.servo_set(angle, self.clasifierServo)
         sleep(0.6)
+        # positive turns left from the robot perspective
 
     def move(self, left, right):
         cyberpi.mbot2.drive_power(left*-1, right)
