@@ -75,7 +75,8 @@ def followLine():
             POS = PreviousPOS
         error = POS-4
         P = KP*error
-        D = KD * (error-PreviousError) 
+        D = KD * (error-PreviousError)
+        print(SPEED+P+D, SPEED - P + D)
         robot.move(SPEED + P + D, SPEED - P + D)
         PreviousError=error 
     robot.stop()
