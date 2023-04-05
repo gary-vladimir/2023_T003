@@ -45,7 +45,7 @@ def rescueBalls():
 #------------------ CYBERPI -----------------#
 
 robot = Robot()
-@cyberpi.event.start()
+
 def initRobot():
     robot.startRobot()
 
@@ -79,3 +79,5 @@ def followLine():
         robot.move(SPEED + P + D, SPEED - P + D)
         PreviousError=error 
     robot.stop()
+
+cyberpi.event.start(callback=initRobot)

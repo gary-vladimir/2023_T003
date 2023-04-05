@@ -16,7 +16,8 @@ class Robot:
         cyberpi.ultrasonic2.led_show([80,80,80,80,80,80,80,80], index=self.ultraUp)
         cyberpi.ultrasonic2.led_show([80,80,80,80,80,80,80,80], index=self.ultraDown)
         self.compartment(90)
-        self.classifier(90)          
+        self.classifier(90)   
+        print("start up finished correctly :D")       
     
     def closeClaw(self):
         cyberpi.mbot2.motor_set(100, self.clawDC)
