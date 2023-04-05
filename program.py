@@ -1,12 +1,12 @@
-from picamera.array import PiRGBArray
-from picamera import PiCamera
+#from picamera.array import PiRGBArray
+#from picamera import PiCamera
 from time import sleep
 import numpy as np
 import cv2 as CV
 import cyberpi
 
 #-------------- COMPUTER VISION --------------#
-
+"""
 def takeFoto():
     with PiCamera() as camera:
         camera.resolution = (640, 480)
@@ -40,7 +40,7 @@ def rescueBalls():
         x, y, r = TargetBall
         CV.circle(foto, (x,y),r,(255,0,0),4)
         
-        
+"""     
 #------------------ CYBERPI -----------------#
 
 ultraUp = 1
