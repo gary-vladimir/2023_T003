@@ -42,10 +42,10 @@ class Robot:
         cyberpi.mbot2.servo_set(angle, self.clasifierServo)
         sleep(0.6)
 
-    def move(left, right):
+    def move(self, left, right):
         cyberpi.mbot2.drive_power(left*-1, right)
 
-    def stop():
+    def stop(self):
         cyberpi.mbot2.EM_stop()
 
     def lineFollowerRead(self):
