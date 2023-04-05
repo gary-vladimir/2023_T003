@@ -23,7 +23,10 @@
 
 ## Install The Picamera library
 
-`sudo apt-get install python3-picamera`
+`sudo apt install -y python3-picamera2`
+
+test it with:
+`libcamera-hello` you should see a camera preview for about 5 seconds.(to see if it is connected and working)
 
 ## Install the cyberpi library
 
@@ -41,3 +44,6 @@ Clone this repository in the raspberry pi using:
 Make sure you have python 3 installed and run:
 
 `python program.py`
+
+## Recover fotos
+scp gary@TMRPI.local:/home/gary/2023_T003/test.jpg ./Downloads/
