@@ -37,16 +37,17 @@ def getCircles(image):
 
 def showBalls(image, circles):
     print("procesing circles")
+    closestBall = None
     if circles is not None:
         for circle in circles:
+            if closestBall == None or closestBall.r < circle.r: closestBall = circle
             x, y, r = circle
             CV.circle(image, (x,y),r,(0,255,0),2)
+    CV.circle(image, (closestBall.x, closestBall.y), closestBall.r, (255,0,0),2)
     CV.imwrite('processed.jpg', image)
     print("processed.jpg done")
+
 """
-def LargestCircle(circles):
-    if len(circles) == 0: return None
-    return max(circles, key=lambda c: c[2])
 
 @cyberpi.event.is_press("a")
 def rescueBalls():
