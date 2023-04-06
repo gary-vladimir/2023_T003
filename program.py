@@ -24,17 +24,19 @@ def getCircles(image):
     print("finding circles")
     grayFrame = CV.cvtColor(image, CV.COLOR_BGR2GRAY)
     blurredFrame = CV.GaussianBlur(grayFrame, (9,9), 2)
-    circles = CV.HoughCircles(blurredFrame, CV.HOUGH_GRADIENT, 2, 100, param1=80, param2=80, minRadius=50, maxRadius=300)
+    circles = CV.HoughCircles(blurredFrame, CV.HOUGH_GRADIENT, 1.4, 100, param1=80, param2=80, minRadius=50, maxRadius=300)
     if circles is not None:
         circles = np.round(circles[0, :]).astype("int")
     print("return circles")
     return circles
 
+
 def showBalls(image, circles):
     print("procesing circles")
-    for circle in circles:
-        x, y, r = circle
-        CV.circle(image, (x,y),r,(0,255,0),2)
+    if circles is not None:
+        for circle in circles:
+            x, y, r = circle
+            CV.circle(image, (x,y),r,(0,255,0),2)
     CV.imwrite('processed.jpg', image)
     print("processed.jpg done")
 """
