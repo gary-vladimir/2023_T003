@@ -12,6 +12,7 @@ config = cam.create_still_configuration(lores={"size": (640, 480)}, display='lor
 cam.configure(config)
 
 def takeFoto():
+    print("starting foto shoot! ")
     cam.start() 
     sleep(2) 
     cam.capture_file("foto.jpg")
