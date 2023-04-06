@@ -8,7 +8,7 @@ from robot import Robot
 
 #-------------- COMPUTER VISION --------------#
 cam = Picamera2()
-config = cam.create_still_configuration({"size": (640,480)})
+config = cam.create_still_configuration({"size": (1960,1080)})
 cam.configure(config)
 
 def takeFoto():
