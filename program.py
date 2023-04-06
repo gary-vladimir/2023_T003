@@ -47,22 +47,6 @@ def showBalls(image, circles):
     CV.imwrite('processed.jpg', image)
     print("processed.jpg done")
 
-"""
-
-@cyberpi.event.is_press("a")
-def rescueBalls():
-    foto = takeFoto()
-    circles = getCircles(foto)
-    TargetBall = LargestCircle(circles)
-    for circle in circles:
-        x, y, r = circle
-        CV.circle(foto, (x,y),r,(0,255,0),2)
-    if TargetBall is not None:
-        x, y, r = TargetBall
-        CV.circle(foto, (x,y),r,(255,0,0),4)
-        
-"""
-
 #------------------ CYBERPI -----------------#
 
 robot = Robot()
@@ -93,7 +77,7 @@ def followLine():
         s3 = 0 if (lineStatus & (1 << 1)) == 0 else 1
         s4 = 0 if (lineStatus & (1 << 0)) == 0 else 1
         if(not s1 and not s2 and not s3 and not s4):
-            #robot.move(80,80)
+            robot.move(80,80)
             continue
         suma = s1 + s2*3 + s3*5 + s4*7
         pesos = s1 + s2 + s3 + s4
@@ -106,13 +90,17 @@ def followLine():
         P = KP*error
         D = KD * (error-PreviousError)
         print(SPEED+P+D, SPEED - P + D)
-        #robot.move(SPEED + P + D, SPEED - P + D)
+        robot.move(SPEED + P + D, SPEED - P + D)
         PreviousError=error 
     robot.stop()
 
 @cyberpi.event.is_press("down")
 def lowerClaw():
     robot.LowerClaw()
+    
+@cyberpi.event.is_press("up")
+def lowerClaw():
+    robot.elevateClaw()
 
 @cyberpi.event.is_press("left")
 def openClaw():
