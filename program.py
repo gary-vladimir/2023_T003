@@ -8,7 +8,7 @@ from robot import Robot
 
 #-------------- COMPUTER VISION --------------#
 cam = Picamera2()
-config = cam.create_still_configuration(lores={"size": (640, 480)}, display='lores')
+config = cam.create_still_configuration()
 cam.configure(config)
 
 def takeFoto():
@@ -61,6 +61,7 @@ def rescueBalls():
 
 @cyberpi.event.is_press("b") # triangle
 def followLine():
+    print("triangle button pressed")
     KD = 15
     KP = 70
     SPEED = 80
