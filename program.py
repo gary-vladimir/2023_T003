@@ -5,18 +5,22 @@ import numpy as np
 import cv2 as CV
 import cyberpi
 from robot import Robot
+from PIL import Image
 
 #-------------- COMPUTER VISION --------------#
 cam = Picamera2()
-config = cam.create_still_configuration({"size": (1960,1080)})
+config = cam.create_still_configuration()
 cam.configure(config)
 
 def takeFoto():
     print("starting foto shoot! ")
     cam.start() 
     sleep(2) 
-    cam.capture_file("foto.jpg")
+    cam.capture_file("raw.jpg")
     print("done")
+    image = Image.open("raw.jpg")
+    resized = image.resize((980, 540))
+    resized.save('foto')
     return CV.imread("foto.jpg")
 
 
@@ -24,7 +28,7 @@ def getCircles(image):
     print("finding circles")
     grayFrame = CV.cvtColor(image, CV.COLOR_BGR2GRAY)
     blurredFrame = CV.GaussianBlur(grayFrame, (9,9), 2)
-    circles = CV.HoughCircles(blurredFrame, CV.HOUGH_GRADIENT, 1.4, 100, param1=80, param2=80, minRadius=50, maxRadius=300)
+    circles = CV.HoughCircles(blurredFrame, CV.HOUGH_GRADIENT, 1.2, 100, param1=30, param2=25, minRadius=10, maxRadius=100)
     if circles is not None:
         circles = np.round(circles[0, :]).astype("int")
     print("return circles")

@@ -28,6 +28,11 @@
 test it with:
 `libcamera-hello` you should see a camera preview for about 5 seconds.(to see if it is connected and working)
 
+## Install the Pillow library
+
+`pip install Pillow`
+this library is necesary for resizing the photos
+
 ## Install the cyberpi library
 
 `pip3 install cyberpi`
