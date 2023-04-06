@@ -8,7 +8,7 @@ from robot import Robot
 
 #-------------- COMPUTER VISION --------------#
 cam = Picamera2()
-config = cam.create_still_configuration({"size": (980,540)})
+config = cam.create_still_configuration({"size": (1960,1080)})
 cam.configure(config)
 
 def takeFoto():
@@ -16,17 +16,27 @@ def takeFoto():
     cam.start() 
     sleep(2) 
     cam.capture_file("foto.jpg")
+    print("done")
     return CV.imread("foto.jpg")
-# 640, 480
+
 
 def getCircles(image):
+    print("finding circles")
     grayFrame = CV.cvtColor(image, CV.COLOR_BGR2GRAY)
     blurredFrame = CV.GaussianBlur(grayFrame, (9,9), 2)
-    circles = CV.HoughCircles(blurredFrame, CV.HOUGH_GRADIENT, 1.2, 100, param1=50, param2=32, minRadius=20, maxRadius=250)
+    circles = CV.HoughCircles(blurredFrame, CV.HOUGH_GRADIENT, 1.2, 100, param1=50, param2=32, minRadius=50, maxRadius=600)
     if circles is not None:
         circles = np.round(circles[0, :]).astype("int")
-
+    print("return circles")
     return circles
+
+def showBalls(image, circles):
+    print("procesing circles")
+    for circle in circles:
+        x, y, r = circle
+        CV.circle(image, (x,y),r,(0,255,0),2)
+    CV.imwrite('processed.jpg', image)
+    print("processed.jpg done")
 """
 def LargestCircle(circles):
     if len(circles) == 0: return None
@@ -58,6 +68,7 @@ def rescueBalls():
     print("square button pressed")
     foto = takeFoto()
     circles = getCircles(foto)
+    showBalls(foto, circles)
 
 @cyberpi.event.is_press("b") # triangle
 def followLine():
