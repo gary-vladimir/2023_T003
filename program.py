@@ -20,7 +20,7 @@ def takeFoto():
     print("done")
     image = Image.open("raw.jpg")
     resized = image.resize((980, 540))
-    resized.save('foto')
+    resized.save('foto.jpg')
     return CV.imread("foto.jpg")
 
 
