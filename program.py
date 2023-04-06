@@ -24,7 +24,7 @@ def getCircles(image):
     print("finding circles")
     grayFrame = CV.cvtColor(image, CV.COLOR_BGR2GRAY)
     blurredFrame = CV.GaussianBlur(grayFrame, (9,9), 2)
-    circles = CV.HoughCircles(blurredFrame, CV.HOUGH_GRADIENT, 1.2, 100, param1=50, param2=32, minRadius=50, maxRadius=600)
+    circles = CV.HoughCircles(blurredFrame, CV.HOUGH_GRADIENT, 2, 100, param1=50, param2=32, minRadius=50, maxRadius=300)
     if circles is not None:
         circles = np.round(circles[0, :]).astype("int")
     print("return circles")
