@@ -55,6 +55,7 @@ def initRobot():
 
 @cyberpi.event.is_press("a") # square
 def rescueBalls():
+    print("square button pressed")
     foto = takeFoto()
     circles = getCircles(foto)
 
