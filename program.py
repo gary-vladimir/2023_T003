@@ -8,13 +8,16 @@ from robot import Robot
 
 #-------------- COMPUTER VISION --------------#
 cam = Picamera2()
+config = cam.create_still_configuration(lores={"size": (640, 480)}, display='lores')
+cam.configure(config)
 
 def takeFoto():
     cam.start() 
     sleep(2) 
-    cam.capture_file("test.jpg")
+    cam.capture_file("foto.jpg")
+    return CV.imread("foto.jpg")
+# 640, 480
 
-"""
 def getCircles(image):
     grayFrame = CV.cvtColor(image, CV.COLOR_BGR2GRAY)
     blurredFrame = CV.GaussianBlur(grayFrame, (9,9), 2)
@@ -23,7 +26,7 @@ def getCircles(image):
         circles = np.round(circles[0, :]).astype("int")
 
     return circles
-
+"""
 def LargestCircle(circles):
     if len(circles) == 0: return None
     return max(circles, key=lambda c: c[2])
@@ -49,7 +52,12 @@ robot = Robot()
 def initRobot():
     robot.startRobot()
 
-@cyberpi.event.is_press("b")
+@cyberpi.event.is_press("a") # square
+def rescueBalls():
+    foto = takeFoto()
+    circles = getCircles(foto)
+
+@cyberpi.event.is_press("b") # triangle
 def followLine():
     KD = 15
     KP = 70
@@ -84,10 +92,6 @@ def followLine():
 @cyberpi.event.is_press("down")
 def lowerClaw():
     robot.LowerClaw()
-    
-@cyberpi.event.is_press("up")
-def elevateClaw():
-    takeFoto()
 
 @cyberpi.event.is_press("left")
 def openClaw():
