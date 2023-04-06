@@ -40,8 +40,8 @@ def showBalls(image, circles):
     closestBall = None
     if circles is not None:
         for circle in circles:
-            if closestBall == None or closestBall.r < circle.r: closestBall = circle
             x, y, r = circle
+            if closestBall == None or closestBall[2] < r: closestBall = circle
             CV.circle(image, (x,y),r,(0,255,0),2)
     CV.circle(image, (closestBall.x, closestBall.y), closestBall.r, (255,0,0),2)
     CV.imwrite('processed.jpg', image)
